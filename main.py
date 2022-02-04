@@ -1,11 +1,12 @@
 ### User Input ###
-# Starting Amount
-# Income Amount and Payday
-# Bill Amount and Due Dates
+# Starting Amount DONE
+# Income Amount and Payday DONE
+# Bill Amount and Due Dates 
 # Date to Simulate to
 
-userInput_Income = input("Income (x.xx): $")
-userInput_PayDay = input("Payday (12,31...):  ")
+userInput_startAmount = input("Current Amount(xx.xx): $")
+userInput_Income = input("Income (xx.xx): $")
+userInput_PayDayRate = input("Payday Every X Days: ")
 
 # Whats the BEST data collection type for storing bills?
 
@@ -16,10 +17,24 @@ userInput_PayDay = input("Payday (12,31...):  ")
 # 14 : 14.99
 # 30 : 20
 
-userInput_Bills = {}
+tag = True
+billsAmounts = []
 
+while tag == True:
+    dict = {}
+    key = input("name of bill: ")
+    if key == "done":
+        tag = False
+
+    value = input("amount: ")
+    if value == "done":
+        tag = False
+    dict.update({str(key):int(value)})
+
+    print("\n")
+    billsAmounts.append(dict)
+    print(billsAmounts)
     
-
 
 
 ### OUTLINE of Project ###
