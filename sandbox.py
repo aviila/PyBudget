@@ -1,20 +1,20 @@
 ### How Bills are going to be Processed ###
 
-tag = True
-
 sampleList = []
+i=0
 
-while tag == True:
-    dict = {}
-    key = input("name of bill: ")
-    if key == "done":
-        tag = False
+while i < 2:
+    sampleDictionary = {}
+    sampleDictionary['Bill'] = input('Bill Name: ')
+    sampleDictionary['Amount'] = input('Bill Name: ')
+    sampleDictionary['Due Date'] = input('Bill Name: ')
 
-    value = input("amount: ")
-    if value == "done":
-        tag = False
-    dict.update({str(key):int(value)})
+    
 
-    print("\n")
-    sampleList.append(dict)
-    print(sampleList)
+    sampleList.append(sampleDictionary)
+    sampleDictionary = {}
+
+    i+=1
+
+print(sampleList)
+print(sampleDictionary)
