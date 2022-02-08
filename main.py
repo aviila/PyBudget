@@ -7,34 +7,24 @@
 userInput_startAmount = input("Current Amount(xx.xx): $")
 userInput_Income = input("Income (xx.xx): $")
 userInput_PayDayRate = input("Payday Every X Days: ")
+userInput_numberBills = input("How Many Bills Do You Have?: ")
 
-# Whats the BEST data collection type for storing bills?
+#Bill Amount and DueDates
+billList = []
+count = 0
 
-### SAMPLE DATA ###
-# due date(date) : amount(float)
-# 1 : 700
-# 10 : 125
-# 14 : 14.99
-# 30 : 20
+while count < int(userInput_numberBills):
+    billFormatDict = {}
+    billFormatDict['Bill'] = input('Bill Name: ')
+    billFormatDict['Amount'] = input('Amount: ')
+    billFormatDict['Due Date'] = input('Due Date: ')
 
-tag = True
-billsAmounts = []
+    billList.append(billFormatDict)
+    billFormatDict = {}
 
-while tag == True:
-    dict = {}
-    key = input("name of bill: ")
-    if key == "done":
-        tag = False
+    count += 1
 
-    value = input("amount: ")
-    if value == "done":
-        tag = False
-    dict.update({str(key):int(value)})
-
-    print("\n")
-    billsAmounts.append(dict)
-    print(billsAmounts)
-    
+print(billList)
 
 
 ### OUTLINE of Project ###
