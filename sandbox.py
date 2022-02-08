@@ -1,20 +1,31 @@
-### How Bills are going to be Processed ###
+### How Date Simulation is going to work ###
+from datetime import date, datetime, timedelta
 
-sampleList = []
-i=0
+#For Computer Use
+compTodayDay = date.today()
 
-while i < 2:
-    sampleDictionary = {}
-    sampleDictionary['Bill'] = input('Bill Name: ')
-    sampleDictionary['Amount'] = input('Bill Name: ')
-    sampleDictionary['Due Date'] = input('Bill Name: ')
+#For Human Use (comp -> human)
+humanTodayDay = compTodayDay.strftime("%B %d, %Y")
 
-    
+print(compTodayDay.day)
+print(humanTodayDay)
+print("\n")
 
-    sampleList.append(sampleDictionary)
-    sampleDictionary = {}
+#For Human Use
+userDate = "February 10 2022"
+trackingDay = "Mar 15 2022"
+#For Computer Use (human -> comp)
+compUserDate = datetime.strptime(userDate, '%B %d %Y').date()
+compTrackingDay = datetime.strptime(trackingDay, '%b %d %Y').date()
 
-    i+=1
+# if compTrackingDay > compUserDate:
 
-print(sampleList)
-print(sampleDictionary)
+
+print(compUserDate)
+print(compTrackingDay)
+print("\n")
+
+### Bake Bill / Payday in While Loop ###
+while compUserDate <= compTrackingDay:
+    print(compUserDate.strftime("%B %d, %Y"))
+    compUserDate = compUserDate + timedelta(days=1)
