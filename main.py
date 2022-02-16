@@ -1,75 +1,60 @@
-### User Input ###
-# Starting Amount DONE
-# Income Amount and Payday DONE
-# Bill Amount and Due Dates
-# Date to Simulate to
+from datetime import date,datetime, timedelta
 
-userInput_startAmount = input("Current Amount(xx.xx): $")
-userInput_Income = input("Income (xx.xx): $")
-userInput_PayDayRate = input("Payday Every X Days: ")
-userInput_numberBills = input("How Many Bills Do You Have?: ")
+class Bills:
+    def __init__(self,billName,billDate,billPrice):
+        self.billName = billName
+        self.billDate = billDate
+        self.billPrice = billPrice
+    
 
-#Bill Amount and DueDates
-billList = []
-count = 1
+def askBills(start=True):
+    billList = []
+    userInput_startBalance = float(input("Starting Balance: $"))
+    userInput_PaydayRate = int(input("How many days between paydays?: "))
+    userInput_UserPay = int(input("How much do you get paid?: "))
 
-while count < int(userInput_numberBills) + 1:
-    print("Bill {} / {}".format(count,userInput_numberBills))
+    while start == True:
+        userInput_billName = input("Bill Name: ")
+        userInput_billDate = datetime.strptime(input("Bill Due Date: (Day) "),"%d").day
+        userInput_billPrice = float(input("Bill Price: $"))
+        
+        billList.append(Bills(userInput_billName,userInput_billDate,userInput_billPrice))
 
-    billFormatDict = {}
-    billFormatDict['Bill'] = input('Bill Name: ')
-    billFormatDict['Amount'] = input('Amount: ')
-    billFormatDict['Due Date'] = input('Due Date: ')
+        doneInput = input("Done? y/n: ")
+        
+        if doneInput == "y":
+            return billList, userInput_startBalance, userInput_PaydayRate, userInput_UserPay
 
-    billList.append(billFormatDict)
-    billFormatDict = {}
+def simulate(billList, userBalance, userPayRate, userPay):
+    startDate = datetime.today()
+    daysPassed = 0
+    finalDate = datetime(2022,5 , 20)
 
-    count += 1
+    while startDate <= finalDate:
+        print("{}".format(startDate.date()))
+        
+        # if daysPassed % PayRate == 0:
+        # userBalance =+ userIncome
 
-print(billList)
+        for bill in billList:
 
-### How Date Simulation is going to work ###
-from datetime import date, datetime, timedelta
+            if startDate.day == bill.billDate:
+                print("{}".format(startDate.date()))
+                print("{} is Due {} for the Amount of ${}".format(bill.billName, startDate.date(), bill.billPrice))
+                userBalance -= bill.billPrice
+                print("New Balance: {}".format(userBalance))
+        
+        startDate += timedelta(1)
+        daysPassed += 1
 
-#For Computer Use
-compTodayDay = date.today()
+        if daysPassed % userPayRate == 0:
+            userBalance += userPay
+            print("Payday! + {} Balance: {}".format(userPay, userBalance))
 
-#For Human Use (comp -> human)
-humanTodayDay = compTodayDay.strftime("%B %d, %Y")
+def main():
+    billList, userBalance, userPayRate, userPay =  askBills()
 
-print(compTodayDay.day)
-print(humanTodayDay)
-print("\n")
+    simulate(billList, userBalance, userPayRate, userPay)
 
-#For Human Use
-userDate = "February 10 2022"
-trackingDay = "Mar 15 2022"
-#For Computer Use (human -> comp)
-compUserDate = datetime.strptime(userDate, '%B %d %Y').date()
-compTrackingDay = datetime.strptime(trackingDay, '%b %d %Y').date()
-
-# if compTrackingDay > compUserDate:
-
-
-print(compUserDate)
-print(compTrackingDay)
-print("\n")
-
-### Bake Bill / Payday in While Loop ###
-while compUserDate <= compTrackingDay:
-    print(compUserDate.strftime("%B %d, %Y"))
-    compUserDate = compUserDate + timedelta(days=1)
-
-
-### OUTLINE of Project ###
-
-# Track Starting Income && Paydays
-
-# Track Bills & Due Dates
-
-# Progress Time
-#     If day is equal to the day of Payday OR Bill Due, add OR deduct X amount.
-
-
-### Program Output ###
-# Amount in "Account" After Simulation
+if __name__ == "__main__":
+    main()
